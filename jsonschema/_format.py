@@ -268,6 +268,13 @@ def is_anyip(instance: object) -> bool:
     return not getattr(address, "scope_id", "")
 
 
+@_checks_drafts(name="cidr", raises=ValueError)
+def is_cidr(instance: object) -> bool:
+    if not isinstance(instance, str):
+        return True
+    return bool(ipaddress.ip_network(instance))
+
+
 with suppress(ImportError):
     from fqdn import FQDN
 
