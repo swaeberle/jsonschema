@@ -260,6 +260,14 @@ def is_ipv6(instance: object) -> bool:
     return not getattr(address, "scope_id", "")
 
 
+@_checks_drafts(name="anyip", raises=ipaddress.AddressValueError)
+def is_anyip(instance: object) -> bool:
+    if not isinstance(instance, str):
+        return True
+    address = ipaddress.ip_address(instance)
+    return not getattr(address, "scope_id", "")
+
+
 with suppress(ImportError):
     from fqdn import FQDN
 
